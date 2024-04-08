@@ -7,18 +7,26 @@
 @stop
 
 @section('content')
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title"></h3>
-        </div>
+    <div class="card">
         <div class="card-body">
+            <div class="mb-3">
+                <button class="btn btn-success" id="export_excel">
+                    Exportar a Excel
+                </button>
+                <button class="btn btn-danger" id="export_pdf">
+                    Exportar a PDF
+                </button>
+                <button class="btn btn-primary" id="toggle_columns">
+                    Nuevo Usuario
+                </button>
+            </div>
             <div class="table-responsive" id="scroll-footer-table" style="margin-bottom: 20px;">
-                <table class="table table-bordered">
-                    <thead>
+                <table class="table table-bordered" id="datatableUsuario">
+                    <thead class="bg-warning">
                         <tr>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Acción</th>
+                            <th>NOMBRE COMPLETO</th>
+                            <th>CORREO ELECTRÓNICO</th>
+                            <th>ACCIÓN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,10 +62,45 @@
 @stop
 
 @section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap4.css">
 @stop
 
 @section('js')
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
+
     <script>
-        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+        $(document).ready(function() {
+            var datatable = $("#datatableUsuario").DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, "Todos"],
+                ],
+                language: {
+                    processing: "Traitement en cours...",
+                    search: "Buscar",
+                    lengthMenu: "Mostrar_MENU_ Registros",
+                    info: "Mostrar desde _START_ hasta _END_ de _TOTAL_ registros",
+                    infoEmpty: "Opcion no disponible",
+                    infoFiltered: "",
+                    infoPostFix: "",
+                    loadingRecords: "Cargandos registros.",
+                    zeroRecords: "No hay datos disponibles en la tabla",
+                    emptyTable: "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo",
+                    },
+                },
+            });
+        });
     </script>
 @stop
