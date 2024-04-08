@@ -114,7 +114,6 @@
         function editarUsuario() {
             document.getElementById("botonDeEditar").removeAttribute("disabled");
             var datosFormulario = $("#formularioDeUsuario").serialize();
-            var userId = '{{ $usuario->id }}';
             $.ajax({
                 type: 'PUT',
                 dataType: 'json',
