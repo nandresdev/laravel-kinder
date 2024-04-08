@@ -30,5 +30,5 @@ Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
     Route::post('/', [UsuarioController::class, "store"])->name("usuario.store");
     Route::get('/editar/{usuario}', [UsuarioController::class, "edit"])->name("usuario.edit");
     Route::put('/{usuario}', [UsuarioController::class, "update"])->name("usuario.update");
-
+    Route::delete('/{usuario}', [UsuarioController::class, "destroy"])->name("usuario.destroy");
 });

@@ -60,8 +60,10 @@ class UsuarioController extends Controller
         return response()->json($usuario);
     }
 
-
-    public function destroy(string $id)
+    public function destroy(User $usuario)
     {
+        $usuario->delete();
+        return response()->json(['message' => 'Usuario eliminado correctamente'], 200);
     }
+
 }

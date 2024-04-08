@@ -43,7 +43,10 @@
                                         <a href="{{ route('usuario.edit', $user->id) }}" class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                        <a class="btn btn-danger btn-sm"
+                                            onclick="confirmarEliminacionDelUsuario('{{ $user->id }}')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -90,6 +93,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script>
         $(document).ready(function() {
@@ -126,6 +131,55 @@
             $('#userModalLabel').html('Detalles del Usuario');
             $('#userModalBody').html(userDetails);
             $('#userModal').modal('show');
+        }
+
+        function confirmarEliminacionDelUsuario(idUsuario) {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "Este usuario se eliminara definitivamente de la plataforma",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Si, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarUsuario(idUsuario);
+                    window.location.href = '{{ route('usuario.index') }}';
+                }
+            })
+        }
+
+        function eliminarUsuario(idUsuario) {
+            var url = '{{ route('usuario.destroy', [':idUsuario']) }}';
+            url = url.replace(':idUsuario', idUsuario);
+            var csrf = '{{ csrf_token() }}';
+
+            $.ajax({
+                type: 'DELETE',
+                datatype: 'json',
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': csrf
+                },
+                success: function(data) {
+                    if (data.estado == "eliminado") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El usuario ' + data.nombre + ' se elimino con éxito',
+                            confirmButtonColor: "#448aff",
+                            confirmButtonText: "Confirmar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '{{ route('usuario.index') }}';
+                            }
+                        });
+                    }
+                },
+                error: function(data) {}
+            })
         }
     </script>
 @stop
