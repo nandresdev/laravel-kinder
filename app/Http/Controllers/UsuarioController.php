@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AddUsuarioRequest;
+use App\Http\Requests\EditUsuarioRequest;
 
 class UsuarioController extends Controller
 {
@@ -39,13 +40,24 @@ class UsuarioController extends Controller
         return response()->json($usuario);
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
+        $usuario = User::findOrFail($id);
+
+        return view('web.user.editUser', [
+            "usuario" => $usuario
+        ]);
     }
 
-
-    public function update(Request $request, string $id)
+    public function update(EditUsuarioRequest $request, $id)
     {
+        $usuario = User::findOrFail($id);
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        $usuario->password = Hash::make($request->input('password'));
+        $usuario->save();
+
+        return response()->json($usuario);
     }
 
 

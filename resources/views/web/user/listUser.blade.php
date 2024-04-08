@@ -40,7 +40,9 @@
                                             data-target="#userModal{{ $user->id }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('usuario.edit', $user->id) }}" class="btn btn-success btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                         <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                                     </div>
                                 </td>
