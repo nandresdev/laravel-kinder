@@ -296,7 +296,7 @@ return [
     'menu' => [
         [
             'text' => 'Inicio',
-            'url' => '',
+            'url' => 'home',
             'icon' => 'fas fa-fw fa-home',
         ],
         ['header' => 'CONFIGURACIÓN'],
@@ -307,8 +307,8 @@ return [
         ],
         ['header' => 'INTRANET'],
         [
-            'text' => 'Usuario',
-            'url' => '',
+            'text' => 'Usuarios',
+            'url' => 'usuario/',
             'icon' => 'fas fa-fw fa-users',
         ],
         [
