@@ -23,12 +23,10 @@ class UsuarioController extends Controller
         ]);
     }
 
-
     public function create()
     {
         return view('web.user.addUser');
     }
-
 
     public function store(AddUsuarioRequest $request)
     {
@@ -41,21 +39,13 @@ class UsuarioController extends Controller
         return response()->json($usuario);
     }
 
-
-    public function show(string $id)
-    {
-    }
-
-
     public function edit(string $id)
     {
-        //
     }
 
 
     public function update(Request $request, string $id)
     {
-        //
     }
 
 

@@ -31,21 +31,39 @@
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                            <tr> <!-- Agrega esta etiqueta de fila -->
+                            <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
-                                            data-target="#exampleModal"><i class="fas fa-eye"></i></a>
+                                            data-target="#userModal{{ $user->id }}">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
                                         <a href="" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
                                         <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                                     </div>
                                 </td>
-                            </tr> <!-- Agrega esta etiqueta de cierre de fila -->
+                            </tr>
                         @endforeach
+                        <div class="modal fade" id="userModal{{ $user->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="userModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="card-body">
+                                        <strong>Nombre Completo</strong>
+                                        <p class="text-muted">{{ $user->name }} </p>
+                                        <hr>
+                                        <strong>Correo electrónico</strong>
+                                        <p class="text-muted">{{ $user->email }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </tbody>
-
                 </table>
             </div>
         </div>
@@ -98,5 +116,14 @@
                 },
             });
         });
+    </script>
+
+    <script>
+        function mostrarUsuario(userId) {
+            var userDetails = $('#userDetails' + userId).html();
+            $('#userModalLabel').html('Detalles del Usuario');
+            $('#userModalBody').html(userDetails);
+            $('#userModal').modal('show');
+        }
     </script>
 @stop
