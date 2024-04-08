@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AddUsuarioRequest;
 
 class UsuarioController extends Controller
 {
@@ -24,12 +26,19 @@ class UsuarioController extends Controller
 
     public function create()
     {
-        return view();
+        return view('web.user.addUser');
     }
 
 
-    public function store(Request $request)
+    public function store(AddUsuarioRequest $request)
     {
+        $usuario = new User();
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        $usuario->password = Hash::make($request->input('password'));
+        $usuario->save();
+
+        return response()->json($usuario);
     }
 
 

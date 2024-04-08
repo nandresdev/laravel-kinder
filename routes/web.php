@@ -24,6 +24,8 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['auth']);
 
-Route::group(['prefix' => 'usuario'], function () {
+Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
     Route::get('/', [UsuarioController::class, "index"])->name("usuario.index");
+    Route::get('/crear', [UsuarioController::class, "create"])->name("usuario.create");
+    Route::post('/', [UsuarioController::class, "store"])->name("usuario.store");
 });

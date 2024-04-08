@@ -16,7 +16,7 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns">
+                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('usuario.create') }}'">
                     Nuevo Usuario
                 </button>
             </div>
@@ -30,24 +30,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $users)
-                            <td>{{ $users->name }}</td>
-                            <td>{{ $users->email }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
-                                        data-target="#exampleModal"><i class="fas fa-eye"></i></a>
-
-                                    <a href="" class="btn btn-success btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
-                                </div>
-                            </td>
+                        @foreach ($users as $user)
+                            <tr> <!-- Agrega esta etiqueta de fila -->
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#exampleModal"><i class="fas fa-eye"></i></a>
+                                        <a href="" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                        <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                    </div>
+                                </td>
+                            </tr> <!-- Agrega esta etiqueta de cierre de fila -->
                         @endforeach
                     </tbody>
+
                 </table>
             </div>
         </div>
@@ -76,8 +74,6 @@
     <script>
         $(document).ready(function() {
             var datatable = $("#datatableUsuario").DataTable({
-                orderCellsTop: true,
-                fixedHeader: true,
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, "Todos"],
