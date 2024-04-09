@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApoderadoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -31,4 +32,8 @@ Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
     Route::get('/editar/{usuario}', [UsuarioController::class, "edit"])->name("usuario.edit");
     Route::put('/{usuario}', [UsuarioController::class, "update"])->name("usuario.update");
     Route::delete('/{usuario}', [UsuarioController::class, "destroy"])->name("usuario.destroy");
+});
+
+Route::group(['prefix' => 'apoderado', 'middleware' => 'auth'], function () {
+    Route::get('/', [ApoderadoController::class, "index"])->name("apoderado.index");
 });
