@@ -313,7 +313,7 @@ return [
         ],
         [
             'text' => 'Apoderados',
-            'url' => '',
+            'url' => 'apoderado/',
             'icon' => 'fas fa-fw fa-restroom',
         ],
         [

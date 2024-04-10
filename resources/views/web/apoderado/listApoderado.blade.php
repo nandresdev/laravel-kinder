@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Intranet | Registros De Usuarios')
+@section('title', 'Intranet | Registros De Apoderados')
 
 @section('content_header')
-    <h1>Listado de Usuarios</h1>
+    <h1>Listado de Apoderados</h1>
 @stop
 
 @section('content')
@@ -16,50 +16,59 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('usuario.create') }}'">
-                    Nuevo Usuario
+                <button class="btn btn-primary" id="toggle_columns"
+                    onclick="window.location='{{ route('apoderado.create') }}'">
+                    Nuevo Apoderado
                 </button>
             </div>
             <div class="table-responsive" id="scroll-footer-table" style="margin-bottom: 20px;">
-                <table class="table table-bordered" id="datatableUsuario">
+                <table class="table table-bordered" id="datatableApoderado">
                     <thead class="bg-warning">
                         <tr>
+                            <th>RUT</th>
                             <th>NOMBRE COMPLETO</th>
-                            <th>CORREO ELECTRÓNICO</th>
+                            <th>TELÉFONO</th>
                             <th>ACCIÓN</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($apoderados as $apoderado)
                             <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $apoderado->rut }}</td>
+                                <td>{{ $apoderado->nombre }}</td>
+                                <td>{{ $apoderado->telefono }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
-                                            data-target="#userModal{{ $user->id }}">
+                                            data-target="#apoderadoModal{{ $apoderado->id }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('usuario.edit', $user->id) }}" class="btn btn-success btn-sm">
+                                        <a href="{{ route('apoderado.edit', $apoderado->id) }}"
+                                            class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger btn-sm"
-                                            onclick="confirmarEliminacionDelUsuario('{{ $user->id }}')">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
+                                            <a class="btn btn-danger btn-sm"
+                                                onclick="confirmarEliminacionDelApoderado('{{ $apoderado->id }}')">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
                                     </div>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="userModal{{ $user->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="userModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="apoderadoModal{{ $apoderado->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="apoderadoModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="card-body">
-                                            <strong>Nombre Completo</strong>
-                                            <p class="text-muted">{{ $user->name }} </p>
+                                            <strong>RUT</strong>
+                                            <p class="text-muted">{{ $apoderado->rut }} </p>
                                             <hr>
-                                            <strong>Correo electrónico</strong>
-                                            <p class="text-muted">{{ $user->email }}</p>
+                                            <strong>Nombre Completo</strong>
+                                            <p class="text-muted">{{ $apoderado->nombre }}</p>
+                                            <hr>
+                                            <strong>Telélefono</strong>
+                                            <p class="text-muted">{{ $apoderado->telefono }} </p>
+                                            <hr>
+                                            <strong>Telélefono Emergencia</strong>
+                                            <p class="text-muted">{{ $apoderado->telefono_emergencia }}</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger"
@@ -96,10 +105,9 @@
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
     <script>
         $(document).ready(function() {
-            var datatable = $("#datatableUsuario").DataTable({
+            var datatable = $("#datatableApoderado").DataTable({
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, "Todos"],
@@ -124,20 +132,18 @@
                 },
             });
         });
-    </script>
 
-    <script>
-        function mostrarUsuario(userId) {
-            var userDetails = $('#userDetails' + userId).html();
-            $('#userModalLabel').html('Detalles del Usuario');
-            $('#userModalBody').html(userDetails);
-            $('#userModal').modal('show');
+        function mostrarApoderado(apoderadoId) {
+            var apoderadoDetails = $('#apoderadoDetails' + apoderadoId).html();
+            $('#apoderadoModalLabel').html('Detalles del Apoderado');
+            $('#apoderadoModalBody').html(apoderadoDetails);
+            $('#apoderadoModal').modal('show');
         }
 
-        function confirmarEliminacionDelUsuario(idUsuario) {
+        function confirmarEliminacionDelApoderado(idApoderado) {
             Swal.fire({
                 title: '¿Esta seguro?',
-                text: "Este usuario se eliminara definitivamente de la plataforma",
+                text: "Este apoderado se eliminara definitivamente de la plataforma",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -146,15 +152,15 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    eliminarUsuario(idUsuario);
-                    window.location.href = '{{ route('usuario.index') }}';
+                    eliminarApoderado(idApoderado);
+                    window.location.href = '{{ route('apoderado.index') }}';
                 }
             })
         }
 
-        function eliminarUsuario(idUsuario) {
-            var url = '{{ route('usuario.destroy', [':idUsuario']) }}';
-            url = url.replace(':idUsuario', idUsuario);
+        function eliminarApoderado(idApoderado) {
+            var url = '{{ route('apoderado.destroy', [':idApoderado']) }}';
+            url = url.replace(':idApoderado', idApoderado);
             var csrf = '{{ csrf_token() }}';
 
             $.ajax({
@@ -169,12 +175,12 @@
                         Swal.fire({
                             icon: 'success',
                             title: '¡Eliminado!',
-                            text: 'El usuario ' + data.nombre + ' se elimino con éxito',
+                            text: 'El apoderado ' + data.nombre + ' se elimino con éxito',
                             confirmButtonColor: "#448aff",
                             confirmButtonText: "Confirmar"
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = '{{ route('usuario.index') }}';
+                                window.location.href = '{{ route('apoderado.index') }}';
                             }
                         });
                     }

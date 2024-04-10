@@ -9,6 +9,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class EditUsuarioRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     public function rules(Request $request): array
     {
         $userId = Auth::id();
