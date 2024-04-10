@@ -46,7 +46,8 @@
                                         <a href="{{ route('apoderado.edit', $apoderado->id) }}"
                                             class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
-                                            <a class="btn btn-danger btn-sm">
+                                            <a class="btn btn-danger btn-sm"
+                                                onclick="confirmarEliminacionDelApoderado('{{ $apoderado->id }}')">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                     </div>
@@ -137,6 +138,55 @@
             $('#apoderadoModalLabel').html('Detalles del Apoderado');
             $('#apoderadoModalBody').html(apoderadoDetails);
             $('#apoderadoModal').modal('show');
+        }
+
+        function confirmarEliminacionDelApoderado(idApoderado) {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "Este apoderado se eliminara definitivamente de la plataforma",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Si, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarApoderado(idApoderado);
+                    window.location.href = '{{ route('apoderado.index') }}';
+                }
+            })
+        }
+
+        function eliminarApoderado(idApoderado) {
+            var url = '{{ route('apoderado.destroy', [':idApoderado']) }}';
+            url = url.replace(':idApoderado', idApoderado);
+            var csrf = '{{ csrf_token() }}';
+
+            $.ajax({
+                type: 'DELETE',
+                datatype: 'json',
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': csrf
+                },
+                success: function(data) {
+                    if (data.estado == "eliminado") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El apoderado ' + data.nombre + ' se elimino con éxito',
+                            confirmButtonColor: "#448aff",
+                            confirmButtonText: "Confirmar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '{{ route('apoderado.index') }}';
+                            }
+                        });
+                    }
+                },
+                error: function(data) {}
+            })
         }
     </script>
 @stop

@@ -61,7 +61,9 @@ class ApoderadoController extends Controller
         return response()->json($apoderado);
     }
 
-    public function destroy(string $id)
+    public function destroy(Apoderado $apoderado)
     {
+        $apoderado->delete();
+        return response()->json(['message' => 'Apoderado eliminado correctamente'], 200);
     }
 }
