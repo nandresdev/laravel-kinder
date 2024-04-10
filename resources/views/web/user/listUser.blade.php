@@ -50,24 +50,25 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
-                        <div class="modal fade" id="userModal{{ $user->id }}" tabindex="-1" role="dialog"
-                            aria-labelledby="userModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="card-body">
-                                        <strong>Nombre Completo</strong>
-                                        <p class="text-muted">{{ $user->name }} </p>
-                                        <hr>
-                                        <strong>Correo electrónico</strong>
-                                        <p class="text-muted">{{ $user->email }}</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            <div class="modal fade" id="userModal{{ $user->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="userModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="card-body">
+                                            <strong>Nombre Completo</strong>
+                                            <p class="text-muted">{{ $user->name }} </p>
+                                            <hr>
+                                            <strong>Correo electrónico</strong>
+                                            <p class="text-muted">{{ $user->email }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cerrar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

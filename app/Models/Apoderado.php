@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Apoderado extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'rut',
+        'nombre',
+        'telefono',
+        'telefono_emergencia',
+    ];
 }

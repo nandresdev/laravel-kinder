@@ -16,7 +16,8 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('apoderado.create') }}'">
+                <button class="btn btn-primary" id="toggle_columns"
+                    onclick="window.location='{{ route('apoderado.create') }}'">
                     Nuevo Apoderado
                 </button>
             </div>
@@ -31,14 +32,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($apoderados as $apoderados)
+                        @foreach ($apoderados as $apoderado)
                             <tr>
-                                <td>{{ $apoderados->rut }}</td>
-                                <td>{{ $apoderados->nombre }}</td>
-                                <td>{{ $apoderados->telefono }}</td>
+                                <td>{{ $apoderado->rut }}</td>
+                                <td>{{ $apoderado->nombre }}</td>
+                                <td>{{ $apoderado->telefono }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-primary btn-sm" data-toggle="modal">
+                                        <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#apoderadoModal{{ $apoderado->id }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="" class="btn btn-success btn-sm">
@@ -50,6 +52,30 @@
                                     </div>
                                 </td>
                             </tr>
+                            <div class="modal fade" id="apoderadoModal{{ $apoderado->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="apoderadoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="card-body">
+                                            <strong>RUT</strong>
+                                            <p class="text-muted">{{ $apoderado->rut }} </p>
+                                            <hr>
+                                            <strong>Nombre Completo</strong>
+                                            <p class="text-muted">{{ $apoderado->nombre }}</p>
+                                            <hr>
+                                            <strong>Telélefono</strong>
+                                            <p class="text-muted">{{ $apoderado->telefono }} </p>
+                                            <hr>
+                                            <strong>Telélefono Emergencia</strong>
+                                            <p class="text-muted">{{ $apoderado->telefono_emergencia }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -105,5 +131,12 @@
                 },
             });
         });
+
+        function mostrarApoderado(apoderadoId) {
+            var apoderadoDetails = $('#apoderadoDetails' + apoderadoId).html();
+            $('#apoderadoModalLabel').html('Detalles del Apoderado');
+            $('#apoderadoModalBody').html(apoderadoDetails);
+            $('#apoderadoModal').modal('show');
+        }
     </script>
 @stop
