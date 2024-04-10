@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddApoderadoRequest;
+use App\Http\Requests\EditApoderadoRequest;
 use App\Models\Apoderado;
 use Illuminate\Http\Request;
 
@@ -38,12 +39,26 @@ class ApoderadoController extends Controller
 
         return response()->json($apoderado);
     }
-    public function edit(string $id)
+
+    public function edit($id)
     {
+        $apoderado = Apoderado::findOrFail($id);
+
+        return view('web.apoderado.editApoderado', [
+            "apoderado" => $apoderado
+        ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(EditApoderadoRequest $request, $id)
     {
+        $apoderado = Apoderado::findOrFail($id);
+        $apoderado->rut = $request->input('rut');
+        $apoderado->nombre = $request->input('nombre');
+        $apoderado->telefono = $request->input('telefono');
+        $apoderado->telefono_emergencia = $request->input('telefono_emergencia');
+        $apoderado->save();
+
+        return response()->json($apoderado);
     }
 
     public function destroy(string $id)

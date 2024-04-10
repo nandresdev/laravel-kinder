@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Intranet | Agregar Apoderado')
+@section('title', 'Intranet | Editar Apoderado')
 
 @section('content_header')
-    <h1>Agregar Apoderado</h1>
+    <h1>Editar Apoderado</h1>
 @stop
 
 @section('content')
@@ -12,26 +12,27 @@
 
     <form id="formularioDeApoderado">
         @csrf
+        @method('PUT')
         <div class="card-body">
             <div class="form-group">
                 <label for="exampleInputEmail1">RUT</label>
-                <input type="text" class="form-control" id="rut" name="rut" value="{{ old('rut') }}"
-                    onblur="cambiarCampoRutHaTexto(this)" onkeypress="return validarCampoRut(event)"
-                    onfocus="cambiarCampoRutHaNumero(this)">
+                <input type="text" class="form-control" id="rut" name="rut" onblur="cambiarCampoRutHaTexto(this)"
+                    onkeypress="return validarCampoRut(event)" onfocus="cambiarCampoRutHaNumero(this)"
+                    value="{{ $apoderado->rut }}">
                 <div class="invalid-feedback" id="inputValidacionRut">
                 </div>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Nombre Completo</label>
                 <input type="name" class="form-control" id="nombre" placeholder="Nombre Completo" name="nombre"
-                    value="{{ old('nombre') }}">
+                    value="{{ $apoderado->nombre }}">
                 <div class="invalid-feedback" id="inputValidacionNombre">
                 </div>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Teléfono</label>
                 <input type="text" class="form-control" id="telefono" placeholder="+56 9 12345678" name="telefono"
-                    value="{{ old('telefono') }}">
+                    value="{{ $apoderado->telefono }}">
                 <div class="invalid-feedback" id="inputValidacionTelefono">
                 </div>
             </div>
@@ -39,15 +40,15 @@
                 <label for="exampleInputEmail1">Teléfono De Emergencia<span style="font-weight: 700; font-size:11px;">
                         (Opcional)</span></label>
                 <input type="text" class="form-control" id="telefono_emergencia" placeholder="+56 9 12345678"
-                    name="telefono_emergencia" value="{{ old('telefono_emergencia') }}">
+                    name="telefono_emergencia" value="{{ $apoderado->telefono_emergencia }}">
                 <div class="invalid-feedback" id="inputValidacionTelefonoEmergencia">
                 </div>
             </div>
         </div>
 
         <div class="card-footer">
-            <button type="button" class="btn btn-warning" id="botonDeCreacion" onclick="registrarApoderado()"><i
-                    class="fas fa-plus-circle" style="margin-right: 2px;"></i> Registrar Apoderado </button>
+            <button type="button" class="btn btn-warning" id="botonDeEditar" onclick="editarApoderado()"><i
+                    class="fas fa-plus-circle" style="margin-right: 2px;"></i> Editar Apoderado </button>
             <a href="{{ route('apoderado.index') }}" role="button" class="btn btn-secondary"><i
                     class="fas fa-arrow-alt-circle-left" style="margin-right: 2px;"></i> Volver</a>
         </div>
@@ -103,19 +104,19 @@
             }
         }
 
-        function registrarApoderado() {
-            document.getElementById("botonDeCreacion").removeAttribute("disabled");
+        function editarApoderado() {
+            document.getElementById("botonDeEditar").removeAttribute("disabled");
             var datosFormulario = $("#formularioDeApoderado").serialize();
             $.ajax({
-                type: 'POST',
-                datatype: 'json',
-                url: '{{ route('apoderado.store') }}',
+                type: 'PUT',
+                dataType: 'json',
+                url: '{{ route('apoderado.update', ['apoderado' => $apoderado->id]) }}',
                 data: datosFormulario,
                 success: function(data) {
                     Swal.fire({
                         icon: 'success',
-                        title: '¡Creado!',
-                        text: 'El apoderado ' + data.nombre + ' se creó con éxito',
+                        title: '¡Modificado!',
+                        text: 'El apoderado ' + data.nombre + ' se modificó con éxito',
                         confirmButtonColor: "#448aff",
                         confirmButtonText: "Confirmar"
                     }).then((result) => {
@@ -127,10 +128,9 @@
                 error: function(data) {
                     console.log(data)
                     validarCampos(data)
-                    document.getElementById("botonDeCreacion").removeAttribute("disabled");
-
+                    document.getElementById("botonDeEditar").removeAttribute("disabled");
                 }
-            })
+            });
         }
 
         function cambiarCampoRutHaNumero(campo) {

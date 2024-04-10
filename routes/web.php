@@ -38,4 +38,6 @@ Route::group(['prefix' => 'apoderado', 'middleware' => 'auth'], function () {
     Route::get('/', [ApoderadoController::class, "index"])->name("apoderado.index");
     Route::get('/crear', [ApoderadoController::class, "create"])->name("apoderado.create");
     Route::post('/', [ApoderadoController::class, "store"])->name("apoderado.store");
+    Route::get('/editar/{apoderado}', [ApoderadoController::class, "edit"])->name("apoderado.edit");
+    Route::put('/{apoderado}', [ApoderadoController::class, "update"])->name("apoderado.update");
 });

@@ -43,12 +43,12 @@
                                             data-target="#apoderadoModal{{ $apoderado->id }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="" class="btn btn-success btn-sm">
+                                        <a href="{{ route('apoderado.edit', $apoderado->id) }}"
+                                            class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger btn-sm">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
+                                            <a class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
                                     </div>
                                 </td>
                             </tr>
