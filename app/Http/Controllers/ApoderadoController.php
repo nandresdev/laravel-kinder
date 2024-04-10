@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddApoderadoRequest;
 use App\Models\Apoderado;
 use Illuminate\Http\Request;
 
@@ -20,14 +21,23 @@ class ApoderadoController extends Controller
             "apoderados" => $apoderados
         ]);
     }
+
     public function create()
     {
+        return view("web.apoderado.addApoderado");
     }
 
-    public function store(Request $request)
+    public function store(AddApoderadoRequest $request)
     {
-    }
+        $apoderado = new Apoderado();
+        $apoderado->rut = $request->input('rut');
+        $apoderado->nombre = $request->input('nombre');
+        $apoderado->telefono = $request->input('telefono');
+        $apoderado->telefono_emergencia = $request->input('telefono_emergencia');
+        $apoderado->save();
 
+        return response()->json($apoderado);
+    }
     public function edit(string $id)
     {
     }
@@ -38,6 +48,5 @@ class ApoderadoController extends Controller
 
     public function destroy(string $id)
     {
-
     }
 }

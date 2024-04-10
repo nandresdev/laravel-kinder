@@ -36,4 +36,6 @@ Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'apoderado', 'middleware' => 'auth'], function () {
     Route::get('/', [ApoderadoController::class, "index"])->name("apoderado.index");
+    Route::get('/crear', [ApoderadoController::class, "create"])->name("apoderado.create");
+    Route::post('/', [ApoderadoController::class, "store"])->name("apoderado.store");
 });

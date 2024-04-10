@@ -16,7 +16,7 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns">
+                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('apoderado.create') }}'">
                     Nuevo Apoderado
                 </button>
             </div>
