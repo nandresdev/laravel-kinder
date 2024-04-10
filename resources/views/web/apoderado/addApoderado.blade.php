@@ -16,7 +16,8 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">RUT</label>
                 <input type="text" class="form-control" id="rut" name="rut" value="{{ old('rut') }}"
-                    placeholder="00.000.000-0">
+                    onblur="cambiarCampoRutHaTexto(this)" onkeypress="return validarCampoRut(event)"
+                    onfocus="cambiarCampoRutHaNumero(this)">
                 <div class="invalid-feedback" id="inputValidacionRut">
                 </div>
             </div>
@@ -131,5 +132,150 @@
                 }
             })
         }
+
+        function cambiarCampoRutHaNumero(campo) {
+            campo.setAttribute("maxlength", "9");
+            switch (campo.value.length) {
+                case 2:
+                    var rutNumerico = campo.value.slice(1, 2);
+                    campo.value = rutNumerico;
+                    break;
+                case 3:
+                    var rutNumerico1 = campo.value.slice(0, 1);
+                    var rutNumerico2 = campo.value.slice(2, 3);
+                    campo.value = rutNumerico1 + rutNumerico2;
+                    break;
+                case 4:
+                    var rutNumerico1 = campo.value.slice(0, 2);
+                    var rutNumerico2 = campo.value.slice(3, 4);
+                    campo.value = rutNumerico1 + rutNumerico2;
+                    break;
+                case 5:
+                    var rutNumerico1 = campo.value.slice(0, 3);
+                    var rutNumerico2 = campo.value.slice(4, 5);
+                    campo.value = rutNumerico1 + rutNumerico2;
+                    break;
+                case 7:
+                    var rutNumerico1 = campo.value.slice(0, 1);
+                    var rutNumerico2 = campo.value.slice(2, 5);
+                    var rutNumerico3 = campo.value.slice(6, 7);
+                    campo.value = rutNumerico1 + rutNumerico2 + rutNumerico3;
+                    break;
+                case 8:
+                    var rutNumerico1 = campo.value.slice(0, 2);
+                    var rutNumerico2 = campo.value.slice(3, 6);
+                    var rutNumerico3 = campo.value.slice(7, 8);
+                    campo.value = rutNumerico1 + rutNumerico2 + rutNumerico3;
+                    break;
+                case 9:
+                    var rutNumerico1 = campo.value.slice(0, 3);
+                    var rutNumerico2 = campo.value.slice(4, 7);
+                    var rutNumerico3 = campo.value.slice(8, 9);
+                    campo.value = rutNumerico1 + rutNumerico2 + rutNumerico3;
+                    break;
+                case 11:
+                    var rutNumerico1 = campo.value.slice(0, 1);
+                    var rutNumerico2 = campo.value.slice(2, 5);
+                    var rutNumerico3 = campo.value.slice(6, 9);
+                    var rutNumerico4 = campo.value.slice(10, 11);
+                    campo.value = rutNumerico1 + rutNumerico2 + rutNumerico3 + rutNumerico4;
+                    break;
+                case 12:
+                    var rutNumerico1 = campo.value.slice(0, 2);
+                    var rutNumerico2 = campo.value.slice(3, 6);
+                    var rutNumerico3 = campo.value.slice(7, 10);
+                    var rutNumerico4 = campo.value.slice(11, 12);
+                    campo.value = rutNumerico1 + rutNumerico2 + rutNumerico3 + rutNumerico4;
+                    break;
+            }
+        }
+
+        function cambiarCampoRutHaTexto(campo) {
+            campo.setAttribute("maxlength", "12");
+            switch (campo.value.length) {
+                case 1:
+                    var rutNumerico = campo.value;
+                    campo.value = "-" + rutNumerico;
+                    break;
+                case 2:
+                    var rutNumerico1 = campo.value.slice(0, 1);
+                    var rutNumerico2 = campo.value.slice(1, 2);
+                    campo.value = rutNumerico1 + "-" + rutNumerico2;
+                    break;
+                case 3:
+                    var rutNumerico1 = campo.value.slice(0, 2);
+                    var rutNumerico2 = campo.value.slice(2, 3);
+                    campo.value = rutNumerico1 + "-" + rutNumerico2;
+                    break;
+                case 4:
+                    var rutNumerico1 = campo.value.slice(0, 3);
+                    var rutNumerico2 = campo.value.slice(3, 4);
+                    campo.value = rutNumerico1 + "-" + rutNumerico2;
+                    break;
+                case 5:
+                    var rutNumerico1 = campo.value.slice(0, 1);
+                    var rutNumerico2 = campo.value.slice(1, 4);
+                    var rutNumerico3 = campo.value.slice(4, 5);
+                    campo.value = rutNumerico1 + "." + rutNumerico2 + "-" + rutNumerico3;
+                    break;
+                case 6:
+                    var rutNumerico1 = campo.value.slice(0, 2);
+                    var rutNumerico2 = campo.value.slice(2, 5);
+                    var rutNumerico3 = campo.value.slice(5, 6);
+                    campo.value = rutNumerico1 + "." + rutNumerico2 + "-" + rutNumerico3;
+                    break;
+                case 7:
+                    var rutNumerico1 = campo.value.slice(0, 3);
+                    var rutNumerico2 = campo.value.slice(3, 6);
+                    var rutNumerico3 = campo.value.slice(6, 7);
+                    campo.value = rutNumerico1 + "." + rutNumerico2 + "-" + rutNumerico3;
+                    break;
+                case 8:
+                    var rutNumerico1 = campo.value.slice(0, 1);
+                    var rutNumerico2 = campo.value.slice(1, 4);
+                    var rutNumerico3 = campo.value.slice(4, 7);
+                    var rutNumerico4 = campo.value.slice(7, 8);
+                    campo.value = rutNumerico1 + "." + rutNumerico2 + "." + rutNumerico3 + "-" + rutNumerico4;
+                    break;
+                case 9:
+                    var rutNumerico1 = campo.value.slice(0, 2);
+                    var rutNumerico2 = campo.value.slice(2, 5);
+                    var rutNumerico3 = campo.value.slice(5, 8);
+                    var rutNumerico4 = campo.value.slice(8, 9);
+                    campo.value = rutNumerico1 + "." + rutNumerico2 + "." + rutNumerico3 + "-" + rutNumerico4;
+                    break;
+            }
+        }
+
+        function validarCampoRut(event) {
+            var campoRut = document.getElementById("rut");
+            if (event.key != 1 && event.key != 2 && event.key != 3 && event.key != 4 && event.key != 5 && event.key != 6 &&
+                event.key != 7 && event.key != 8 && event.key != 9 && event.key != 0 && event.key != "k" && event.key != "K"
+            ) {
+                return false;
+            } else {
+                if (campoRut.value.length > 8) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+
+        document.getElementById('telefono').addEventListener('input', function() {
+            let telefonoInput = this.value.trim();
+            if (!telefonoInput.startsWith('+56 9')) {
+                telefonoInput = '+56 9 ' + telefonoInput;
+            }
+            this.value = telefonoInput;
+        });
+
+        document.getElementById('telefono_emergencia').addEventListener('input', function() {
+            let telefonoInput = this.value.trim();
+            if (!telefonoInput.startsWith('+56 9')) {
+                telefonoInput = '+56 9 ' + telefonoInput;
+            }
+            this.value = telefonoInput;
+        });
     </script>
 @stop
