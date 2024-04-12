@@ -318,7 +318,7 @@ return [
         ],
         [
             'text' => 'Alumnos',
-            'url' => '',
+            'url' => 'alumno/',
             'icon' => 'fas fa-fw fa-graduation-cap',
         ],
         [

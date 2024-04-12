@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\ApoderadoController;
 use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Auth;
@@ -52,5 +53,11 @@ Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
     Route::get('/editar/{curso}', [CursoController::class, "edit"])->name("curso.edit");
     Route::put('/{curso}', [CursoController::class, "update"])->name("curso.update");
     Route::delete('/{curso}', [CursoController::class, "destroy"])->name("curso.destroy");
+
+});
+
+
+Route::group(['prefix' => 'alumno', 'middleware' => 'auth'], function () {
+    Route::get('/', [AlumnoController::class, "index"])->name("curso.index");
 
 });
