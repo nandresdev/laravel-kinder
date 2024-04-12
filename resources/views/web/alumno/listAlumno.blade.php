@@ -24,15 +24,20 @@
                 <table class="table table-bordered" id="datatableAlumno">
                     <thead class="bg-warning">
                         <tr>
+                            <th>MATRICULA</th>
                             <th>NOMBRE COMPLETO</th>
+                            <th>CURSO</th>
+                            <th>APODERADO</th>
                             <th>ACCIÓN</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($alumnos as $alumno)
                             <tr>
-                                <td>{{ $alumno->name }}</td>
-                                <td>{{ $alumno->email }}</td>
+                                <td>{{ $alumno->matricula }}</td>
+                                <td>{{ $alumno->nombre }}</td>
+                                <td>{{ $alumno->id_apoderado }}</td>
+                                <td>{{ $alumno->id_curso }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-primary btn-sm">
