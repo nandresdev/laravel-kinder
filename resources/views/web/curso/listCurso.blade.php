@@ -16,10 +16,9 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns">
+                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('curso.create') }}'">
                     Nuevo Curso
                 </button>
-
             </div>
             <div class="table-responsive" id="scroll-footer-table" style="margin-bottom: 20px;">
                 <table class="table table-bordered" id="datatableCurso">
