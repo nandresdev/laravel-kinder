@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Curso;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddCursoRequest;
 
 class CursoController extends Controller
 {
@@ -20,9 +21,21 @@ class CursoController extends Controller
         ]);
     }
 
-
-    public function store(Request $request)
+    public function create()
     {
+        return view('web.curso.addCurso');
+    }
+
+
+    public function store(AddCursoRequest $request)
+    {
+        $curso = new Curso();
+        $curso->nombre = $request->input('nombre');
+        $curso->jornada = $request->input('jornada');
+        $curso->categoria = $request->input('categoria');
+        $curso->save();
+
+        return response()->json($curso);
     }
 
 
