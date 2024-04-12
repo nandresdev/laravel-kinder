@@ -48,4 +48,5 @@ Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
     Route::get('/', [CursoController::class, "index"])->name("curso.index");
     Route::get('/crear', [CursoController::class, "create"])->name("curso.create");
     Route::post('/', [CursoController::class, "store"])->name("curso.store");
+    Route::get('/ver/{curso}', [CursoController::class, "show"])->name("curso.show");
 });

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Intranet | Registros De Cursos')
+@section('title', 'Intranet | Registros De Alumnos')
 
 @section('content_header')
-    <h1>Listado de Cursos</h1>
+    <h1>{{ $curso->nombre }}</h1>
 @stop
 
 @section('content')
@@ -16,41 +16,19 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('curso.create') }}'">
-                    Nuevo Curso
+                <button class="btn btn-primary" id="toggle_columns">
+                    Integrar Nuevo Alumno
                 </button>
             </div>
             <div class="table-responsive" id="scroll-footer-table" style="margin-bottom: 20px;">
-                <table class="table table-bordered" id="datatableCurso">
+                <table class="table table-bordered" id="dataTableAlumno">
                     <thead class="bg-warning">
                         <tr>
-                            <th>NOMBRE DE CURSO</th>
-                            <th>JORNADA</th>
-                            <th>TIPO DE TRANSICIÓN</th>
+                            <th>NOMBRE COMPLETO</th>
                             <th>ACCIÓN</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cursos as $curso)
-                            <tr>
-                                <td>{{ $curso->nombre }}</td>
-                                <td>{{ $curso->jornada }}</td>
-                                <td>{{ $curso->categoria }}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="{{ route('curso.show', $curso->id) }}" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="" class="btn btn-success btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger btn-sm">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -81,7 +59,7 @@
 
     <script>
         $(document).ready(function() {
-            var datatable = $("#datatableCurso").DataTable({
+            var datatable = $("#dataTableAlumno").DataTable({
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, "Todos"],
@@ -107,4 +85,5 @@
             });
         });
     </script>
+
 @stop

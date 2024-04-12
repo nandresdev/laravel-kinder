@@ -26,7 +26,6 @@ class CursoController extends Controller
         return view('web.curso.addCurso');
     }
 
-
     public function store(AddCursoRequest $request)
     {
         $curso = new Curso();
@@ -38,6 +37,18 @@ class CursoController extends Controller
         return response()->json($curso);
     }
 
+    public function show($id)
+    {
+        $curso = Curso::findOrFail($id);
+
+        return view('web.curso.showCurso', [
+            "curso" => $curso
+        ]);
+    }
+
+    public function edit($id)
+    {
+    }
 
     public function update(Request $request, string $id)
     {
