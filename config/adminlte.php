@@ -323,7 +323,7 @@ return [
         ],
         [
             'text' => 'Cursos',
-            'url' => '',
+            'url' => 'cursos/',
             'icon' => 'fas fa-fw fa-sitemap',
         ],
         [
