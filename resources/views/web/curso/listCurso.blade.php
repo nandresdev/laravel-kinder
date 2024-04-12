@@ -41,7 +41,7 @@
                                         <a href="{{ route('curso.show', $curso->id) }}" class="btn btn-primary btn-sm">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="" class="btn btn-success btn-sm">
+                                        <a href="{{ route('curso.edit', $curso->id) }}" class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger btn-sm">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddCursoRequest;
+use App\Http\Requests\EditCursoRequest;
 
 class CursoController extends Controller
 {
@@ -48,10 +49,22 @@ class CursoController extends Controller
 
     public function edit($id)
     {
+        $curso = Curso::findOrFail($id);
+
+        return view('web.curso.editCurso', [
+            "curso" => $curso
+        ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(EditCursoRequest $request, $id)
     {
+        $curso = Curso::findOrFail($id);
+        $curso->nombre = $request->input('nombre');
+        $curso->jornada = $request->input('jornada');
+        $curso->categoria = $request->input('categoria');
+        $curso->save();
+
+        return response()->json($curso);
     }
 
 

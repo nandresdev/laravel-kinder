@@ -49,4 +49,6 @@ Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
     Route::get('/crear', [CursoController::class, "create"])->name("curso.create");
     Route::post('/', [CursoController::class, "store"])->name("curso.store");
     Route::get('/ver/{curso}', [CursoController::class, "show"])->name("curso.show");
+    Route::get('/editar/{curso}', [CursoController::class, "edit"])->name("curso.edit");
+    Route::put('/{curso}', [CursoController::class, "update"])->name("curso.update");
 });
