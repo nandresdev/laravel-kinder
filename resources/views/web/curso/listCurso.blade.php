@@ -44,7 +44,8 @@
                                         <a href="{{ route('curso.edit', $curso->id) }}" class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger btn-sm">
+                                        <a class="btn btn-danger btn-sm"
+                                            onclick="confirmarEliminacionDelCurso('{{ $curso->id }}')">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </div>
@@ -106,5 +107,55 @@
                 },
             });
         });
+    </script>
+    <script>
+        function confirmarEliminacionDelCurso(idCurso) {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "Este curso se eliminara definitivamente de la plataforma",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Si, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarCurso(idCurso);
+                    window.location.href = '{{ route('curso.index') }}';
+                }
+            })
+        }
+
+        function eliminarCurso(idCurso) {
+            var url = '{{ route('curso.destroy', [':idCurso']) }}';
+            url = url.replace(':idCurso', idCurso);
+            var csrf = '{{ csrf_token() }}';
+
+            $.ajax({
+                type: 'DELETE',
+                datatype: 'json',
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': csrf
+                },
+                success: function(data) {
+                    if (data.estado == "eliminado") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Eliminado!',
+                            text: 'El curso ' + data.nombre + ' se elimino con éxito',
+                            confirmButtonColor: "#448aff",
+                            confirmButtonText: "Confirmar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '{{ route('curso.index') }}';
+                            }
+                        });
+                    }
+                },
+                error: function(data) {}
+            })
+        }
     </script>
 @stop
