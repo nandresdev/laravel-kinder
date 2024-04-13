@@ -15,4 +15,9 @@ class Apoderado extends Model
         'telefono',
         'telefono_emergencia',
     ];
+
+    public function alumnos()
+    {
+        return $this->hasMany(Alumno::class,"id_apoderado");
+    }
 }

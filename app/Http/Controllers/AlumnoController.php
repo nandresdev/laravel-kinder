@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddAlumnoRequest;
 use App\Models\Alumno;
+use App\Models\Apoderado;
+use App\Models\Curso;
 use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
@@ -23,10 +26,23 @@ class AlumnoController extends Controller
 
     public function create()
     {
+        $apoderados = Apoderado::all();
+        $cursos = Curso::all();
+        return view("web.alumno.AddAlumno", [
+            "apoderados" => $apoderados,
+            "cursos" => $cursos
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(AddAlumnoRequest $request)
     {
+        $alumno = new Alumno();
+        $alumno->nombre = $request->input('nombre');
+        $alumno->id_curso = $request->input('id_curso');
+        $alumno->id_apoderado = $request->input('id_apoderado');
+        $alumno->save();
+
+        return response()->json($alumno);
     }
 
     public function show(string $id)
