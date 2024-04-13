@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
+
     public function up(): void
     {
         Schema::create('alumnos', function (Blueprint $table) {
@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->unsignedBigInteger('id_apoderado');
             $table->unsignedBigInteger('id_curso')->nullable();
-            $table->string('matricula');
+            $table->string('matricula')->nullable();
             $table->foreign("id_apoderado")->references("id")->on("apoderados")->onUpdate("cascade");
             $table->foreign("id_curso")->references("id")->on("cursos")->onUpdate("cascade");
             $table->timestamps();

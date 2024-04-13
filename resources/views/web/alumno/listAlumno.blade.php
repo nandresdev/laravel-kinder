@@ -16,7 +16,7 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns">
+                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('alumno.create') }}'">
                     Nuevo Alumno
                 </button>
             </div>
@@ -36,8 +36,8 @@
                             <tr>
                                 <td>{{ $alumno->matricula }}</td>
                                 <td>{{ $alumno->nombre }}</td>
-                                <td>{{ $alumno->id_apoderado }}</td>
-                                <td>{{ $alumno->id_curso }}</td>
+                                <td>{{ $alumno->apoderados->nombre }}</td>
+                                <td>{{ $alumno->cursos->nombre }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-primary btn-sm">

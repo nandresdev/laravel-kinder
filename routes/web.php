@@ -53,11 +53,11 @@ Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
     Route::get('/editar/{curso}', [CursoController::class, "edit"])->name("curso.edit");
     Route::put('/{curso}', [CursoController::class, "update"])->name("curso.update");
     Route::delete('/{curso}', [CursoController::class, "destroy"])->name("curso.destroy");
-
 });
 
 
 Route::group(['prefix' => 'alumno', 'middleware' => 'auth'], function () {
-    Route::get('/', [AlumnoController::class, "index"])->name("curso.index");
-
+    Route::get('/', [AlumnoController::class, "index"])->name("alumno.index");
+    Route::get('/crear', [AlumnoController::class, "create"])->name("alumno.create");
+    Route::post('/', [AlumnoController::class, "store"])->name("alumno.store");
 });

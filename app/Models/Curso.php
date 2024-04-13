@@ -14,4 +14,9 @@ class Curso extends Model
         'jornada',
         'categoria',
     ];
+
+    public function alumnos()
+    {
+        return $this->hasMany(Alumno::class, "id_curso");
+    }
 }
