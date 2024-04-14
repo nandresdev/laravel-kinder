@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddAlumnoRequest;
+use App\Models\Curso;
 use App\Models\Alumno;
 use App\Models\Apoderado;
-use App\Models\Curso;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddAlumnoRequest;
+use App\Http\Requests\EditAlumnoRequest;
 
 class AlumnoController extends Controller
 {
@@ -45,15 +46,33 @@ class AlumnoController extends Controller
         return response()->json($alumno);
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
+        $apoderados = Apoderado::all();
+        $cursos = Curso::all();
+        $alumno = Alumno::findOrFail($id);
+
+        return view("web.alumno.EditAlumno", [
+            "apoderados" => $apoderados,
+            "cursos" => $cursos,
+            "alumno" => $alumno
+        ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(EditAlumnoRequest $request, $id)
     {
+        $alumno = Alumno::findOrFail($id);
+        $alumno->nombre = $request->input('nombre');
+        $alumno->id_curso = $request->input('id_curso');
+        $alumno->id_apoderado = $request->input('id_apoderado');
+        $alumno->save();
+
+        return response()->json($alumno);
     }
 
-    public function destroy(string $id)
+    public function destroy(Alumno $alumno)
     {
+        $alumno->delete();
+        return response()->json(['message' => 'Alumno eliminado correctamente'], 200);
     }
 }
