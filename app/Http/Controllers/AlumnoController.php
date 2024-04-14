@@ -70,7 +70,9 @@ class AlumnoController extends Controller
         return response()->json($alumno);
     }
 
-    public function destroy(string $id)
+    public function destroy(Alumno $alumno)
     {
+        $alumno->delete();
+        return response()->json(['message' => 'Alumno eliminado correctamente'], 200);
     }
 }
