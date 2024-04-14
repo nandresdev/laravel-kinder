@@ -86,7 +86,7 @@
 
         function registrarCurso() {
             document.getElementById("botonDeCreacion").removeAttribute("disabled");
-            var datosFormulario = $("#formularioDeCurso").serialize();
+            const datosFormulario = $("#formularioDeCurso").serialize();
             $.ajax({
                 type: 'POST',
                 datatype: 'json',

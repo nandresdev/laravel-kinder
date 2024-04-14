@@ -45,10 +45,6 @@ class AlumnoController extends Controller
         return response()->json($alumno);
     }
 
-    public function show(string $id)
-    {
-    }
-
     public function edit(string $id)
     {
     }
