@@ -60,4 +60,6 @@ Route::group(['prefix' => 'alumno', 'middleware' => 'auth'], function () {
     Route::get('/', [AlumnoController::class, "index"])->name("alumno.index");
     Route::get('/crear', [AlumnoController::class, "create"])->name("alumno.create");
     Route::post('/', [AlumnoController::class, "store"])->name("alumno.store");
+    Route::get('/editar/{alumno}', [AlumnoController::class, "edit"])->name("alumno.edit");
+    Route::put('/{alumno}', [AlumnoController::class, "update"])->name("alumno.update");
 });
