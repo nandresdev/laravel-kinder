@@ -67,13 +67,13 @@
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        var togglePassword = document.getElementById("togglePassword");
-        var toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
-        var eyeIcon1 = document.getElementById("eyeIcon1");
-        var eyeIcon2 = document.getElementById("eyeIcon2");
+        const togglePassword = document.getElementById("togglePassword");
+        const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+        const eyeIcon1 = document.getElementById("eyeIcon1");
+        const eyeIcon2 = document.getElementById("eyeIcon2");
 
         togglePassword.addEventListener("click", function() {
-            var passwordField = document.getElementById("inputClave");
+            const passwordField = document.getElementById("inputClave");
             if (passwordField.type === "password") {
                 passwordField.type = "text";
                 eyeIcon1.classList.remove("fa-eye-slash");
@@ -113,7 +113,7 @@
 
         function editarUsuario() {
             document.getElementById("botonDeEditar").removeAttribute("disabled");
-            var datosFormulario = $("#formularioDeUsuario").serialize();
+            const datosFormulario = $("#formularioDeUsuario").serialize();
             $.ajax({
                 type: 'PUT',
                 dataType: 'json',

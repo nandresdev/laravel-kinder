@@ -123,7 +123,7 @@
 
         function registrarAlumno() {
             document.getElementById("botonDeCreacion").removeAttribute("disabled");
-            var datosFormulario = $("#formularioDeAlumno").serialize();
+            const datosFormulario = $("#formularioDeAlumno").serialize();
             $.ajax({
                 type: 'POST',
                 datatype: 'json',

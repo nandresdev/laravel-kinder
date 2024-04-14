@@ -87,7 +87,7 @@
 
         function editarCurso() {
             document.getElementById("botonDeEditar").removeAttribute("disabled");
-            var datosFormulario = $("#formularioDeCurso").serialize();
+            const datosFormulario = $("#formularioDeCurso").serialize();
             $.ajax({
                 type: 'PUT',
                 dataType: 'json',

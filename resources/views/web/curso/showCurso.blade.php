@@ -59,7 +59,7 @@
 
     <script>
         $(document).ready(function() {
-            var datatable = $("#dataTableAlumno").DataTable({
+            const datatable = $("#dataTableAlumno").DataTable({
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, "Todos"],

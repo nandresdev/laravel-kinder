@@ -99,7 +99,7 @@
 
     <script>
         $(document).ready(function() {
-            var datatable = $("#datatableUsuario").DataTable({
+            const datatable = $("#datatableUsuario").DataTable({
                 lengthMenu: [
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, "Todos"],
@@ -128,7 +128,7 @@
 
     <script>
         function mostrarUsuario(userId) {
-            var userDetails = $('#userDetails' + userId).html();
+            const userDetails = $('#userDetails' + userId).html();
             $('#userModalLabel').html('Detalles del Usuario');
             $('#userModalBody').html(userDetails);
             $('#userModal').modal('show');
@@ -153,9 +153,9 @@
         }
 
         function eliminarUsuario(idUsuario) {
-            var url = '{{ route('usuario.destroy', [':idUsuario']) }}';
+            const url = '{{ route('usuario.destroy', [':idUsuario']) }}';
             url = url.replace(':idUsuario', idUsuario);
-            var csrf = '{{ csrf_token() }}';
+            const csrf = '{{ csrf_token() }}';
 
             $.ajax({
                 type: 'DELETE',

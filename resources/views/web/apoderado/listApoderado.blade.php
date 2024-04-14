@@ -134,7 +134,7 @@
         });
 
         function mostrarApoderado(apoderadoId) {
-            var apoderadoDetails = $('#apoderadoDetails' + apoderadoId).html();
+            const apoderadoDetails = $('#apoderadoDetails' + apoderadoId).html();
             $('#apoderadoModalLabel').html('Detalles del Apoderado');
             $('#apoderadoModalBody').html(apoderadoDetails);
             $('#apoderadoModal').modal('show');
@@ -159,9 +159,9 @@
         }
 
         function eliminarApoderado(idApoderado) {
-            var url = '{{ route('apoderado.destroy', [':idApoderado']) }}';
+            const url = '{{ route('apoderado.destroy', [':idApoderado']) }}';
             url = url.replace(':idApoderado', idApoderado);
-            var csrf = '{{ csrf_token() }}';
+            const csrf = '{{ csrf_token() }}';
 
             $.ajax({
                 type: 'DELETE',
