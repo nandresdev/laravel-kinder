@@ -40,7 +40,8 @@
                                 <td>{{ $alumno->cursos->nombre }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-primary btn-sm">
+                                        <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#alumnoModal{{ $alumno->id }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="" class="btn btn-success btn-sm">
@@ -52,6 +53,29 @@
                                     </div>
                                 </td>
                             </tr>
+                            <div class="modal fade" id="alumnoModal{{ $alumno->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="alumnoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="card-body">
+                                            <strong>Ver Matricula</strong>
+                                            <p class="text-muted">{{ $alumno->matricula }} </p>
+                                            <hr>
+                                            <strong>Nombre Completo</strong>
+                                            <p class="text-muted">{{ $alumno->nombre }} </p>
+                                            <hr>
+                                            <strong>Apoderado</strong>
+                                            <p class="text-muted">{{ $alumno->apoderados->nombre }}</p>
+                                            <strong>Curso</strong>
+                                            <p class="text-muted">{{ $alumno->cursos->nombre }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -110,6 +134,15 @@
         });
     </script>
 
-    
+    <script>
+        function mostrarAlumno(alumnoId) {
+            const alumnoDetail = $('#alumnoDetail' + alumnoId).html();
+            $('#alumnoModalLabel').html('Detalles del alumno');
+            $('#alumnoModalBody').html(alumnoDetail);
+            $('#alumnoModal').modal('show');
+        }
+    </script>
+
+
 
 @stop
