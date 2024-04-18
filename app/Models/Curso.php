@@ -15,8 +15,8 @@ class Curso extends Model
         'categoria',
     ];
 
-    public function alumnos()
+    public function matriculas()
     {
-        return $this->hasMany(Alumno::class, "id_curso");
+        return $this->hasMany(Matriculas::class, "id_curso");
     }
 }

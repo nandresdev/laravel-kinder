@@ -312,14 +312,9 @@ return [
             'icon' => 'fas fa-fw fa-users',
         ],
         [
-            'text' => 'Apoderados',
-            'url' => 'apoderado/',
-            'icon' => 'fas fa-fw fa-restroom',
-        ],
-        [
             'text' => 'Alumnos',
             'url' => 'alumno/',
-            'icon' => 'fas fa-fw fa-graduation-cap',
+            'icon' => 'fas fa-fw fa-restroom',
         ],
         [
             'text' => 'Cursos',
@@ -327,8 +322,13 @@ return [
             'icon' => 'fas fa-fw fa-sitemap',
         ],
         [
+            'text' => 'Matrícula',
+            'url' => 'matricula/crear',
+            'icon' => 'fas fa-fw fa-graduation-cap',
+        ],
+        [
             'text' => 'Solicitud De Asistencia',
-            'url' => '',
+            'url' => '/',
             'icon' => 'fas fa-fw fa-id-card',
         ],
 

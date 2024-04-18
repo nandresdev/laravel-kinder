@@ -6,6 +6,7 @@ use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MatriculaController;
 use App\Http\Controllers\UsuarioController;
 
 /*
@@ -36,15 +37,6 @@ Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
     Route::delete('/{usuario}', [UsuarioController::class, "destroy"])->name("usuario.destroy");
 });
 
-Route::group(['prefix' => 'apoderado', 'middleware' => 'auth'], function () {
-    Route::get('/', [ApoderadoController::class, "index"])->name("apoderado.index");
-    Route::get('/crear', [ApoderadoController::class, "create"])->name("apoderado.create");
-    Route::post('/', [ApoderadoController::class, "store"])->name("apoderado.store");
-    Route::get('/editar/{apoderado}', [ApoderadoController::class, "edit"])->name("apoderado.edit");
-    Route::put('/{apoderado}', [ApoderadoController::class, "update"])->name("apoderado.update");
-    Route::delete('/{apoderado}', [ApoderadoController::class, "destroy"])->name("apoderado.destroy");
-});
-
 Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
     Route::get('/', [CursoController::class, "index"])->name("curso.index");
     Route::get('/crear', [CursoController::class, "create"])->name("curso.create");
@@ -55,12 +47,14 @@ Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
     Route::delete('/{curso}', [CursoController::class, "destroy"])->name("curso.destroy");
 });
 
+Route::group(['prefix' => 'matricula', 'middleware' => 'auth'], function () {
+    Route::get('/crear', [MatriculaController::class, "create"])->name("matricula.create");
+    Route::post('/', [MatriculaController::class, "store"])->name("matricula.store");
+
+});
+
 
 Route::group(['prefix' => 'alumno', 'middleware' => 'auth'], function () {
     Route::get('/', [AlumnoController::class, "index"])->name("alumno.index");
-    Route::get('/crear', [AlumnoController::class, "create"])->name("alumno.create");
-    Route::post('/', [AlumnoController::class, "store"])->name("alumno.store");
-    Route::get('/editar/{alumno}', [AlumnoController::class, "edit"])->name("alumno.edit");
-    Route::put('/{alumno}', [AlumnoController::class, "update"])->name("alumno.update");
-    Route::delete('/{alumno}', [AlumnoController::class, "destroy"])->name("alumno.destroy");
 });
+
