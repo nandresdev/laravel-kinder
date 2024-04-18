@@ -16,9 +16,6 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('alumno.create') }}'">
-                    Nuevo Alumno
-                </button>
             </div>
             <div class="table-responsive" id="scroll-footer-table" style="margin-bottom: 20px;">
                 <table class="table table-bordered" id="datatableAlumno">
@@ -28,6 +25,8 @@
                             <th>NOMBRE COMPLETO</th>
                             <th>CURSO</th>
                             <th>APODERADO</th>
+                            <th>TELEFONO</th>
+                            <th>TELEFONO EMERGENCIA</th>
                             <th>ACCIÓN</th>
                         </tr>
                     </thead>
@@ -35,16 +34,18 @@
                         @foreach ($alumnos as $alumno)
                             <tr>
                                 <td>{{ $alumno->matricula }}</td>
-                                <td>{{ $alumno->nombre }}</td>
-                                <td>{{ $alumno->apoderados->nombre }}</td>
+                                <td>{{ $alumno->nombre_alumno }}</td>
                                 <td>{{ $alumno->cursos->nombre }}</td>
+                                <td>{{ $alumno->nombre_apoderado_principal }}</td>
+                                <td>{{ $alumno->telefono_principal }}</td>
+                                <td>{{ $alumno->telefono_emergencia_principal }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
                                             data-target="#alumnoModal{{ $alumno->id }}">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('alumno.edit', $alumno->id) }}" class="btn btn-success btn-sm">
+                                        <a href="" class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger btn-sm"
@@ -63,10 +64,10 @@
                                             <p class="text-muted">{{ $alumno->matricula }} </p>
                                             <hr>
                                             <strong>Nombre Completo</strong>
-                                            <p class="text-muted">{{ $alumno->nombre }} </p>
+                                            <p class="text-muted">{{ $alumno->nombre_alumno }} </p>
                                             <hr>
                                             <strong>Apoderado</strong>
-                                            <p class="text-muted">{{ $alumno->apoderados->nombre }}</p>
+                                            <p class="text-muted">{{ $alumno->nombre_apoderado_principal }}</p>
                                             <strong>Curso</strong>
                                             <p class="text-muted">{{ $alumno->cursos->nombre }}</p>
                                         </div>
@@ -144,7 +145,7 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         function confirmarEliminacionDelAlumno(idAlumno) {
             Swal.fire({
                 title: '¿Esta seguro?',
@@ -193,7 +194,7 @@
                 error: function(data) {}
             })
         }
-    </script>
+    </script> --}}
 
 
 
