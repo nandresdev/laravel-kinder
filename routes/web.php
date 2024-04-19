@@ -48,6 +48,7 @@ Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
     Route::get('/editar/{curso}', [CursoController::class, "edit"])->name("curso.edit");
     Route::put('/{curso}', [CursoController::class, "update"])->name("curso.update");
     Route::delete('/{curso}', [CursoController::class, "destroy"])->name("curso.destroy");
+    Route::get('/exportar/excel', [CursoController::class, 'exportExcel'])->name('curso.excel');
 });
 
 Route::group(['prefix' => 'matricula', 'middleware' => 'auth'], function () {

@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Curso;
 use Illuminate\Http\Request;
+use App\Exports\CursosExport;
+use Maatwebsite\Excel\Excel;
 use App\Http\Requests\AddCursoRequest;
 use App\Http\Requests\EditCursoRequest;
 
 class CursoController extends Controller
 {
-    public function __construct()
+    protected $excel;
+
+    public function __construct(Excel $excel)
     {
         $this->middleware('auth');
+        $this->excel = $excel;
     }
-
     public function index()
     {
         $cursos = Curso::all();
@@ -72,5 +76,10 @@ class CursoController extends Controller
     {
         $curso->delete();
         return response()->json(['message' => 'Curso eliminado correctamente'], 200);
+    }
+
+    public function exportExcel()
+    {
+        return $this->excel->download(new CursosExport, 'listadoCursos.xlsx');
     }
 }
