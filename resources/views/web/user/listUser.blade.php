@@ -13,10 +13,10 @@
                 <button class="btn btn-success" onclick="window.location='{{ route('usuario.excel') }}'">
                     Exportar a Excel
                 </button>
-                <button class="btn btn-danger" id="export_pdf">
+                <button class="btn btn-danger" onclick="window.location='{{ route('usuario.pdf') }}'">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('usuario.create') }}'">
+                <button class="btn btn-primary" onclick="window.location='{{ route('usuario.create') }}'">
                     Nuevo Usuario
                 </button>
             </div>

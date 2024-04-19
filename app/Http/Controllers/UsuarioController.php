@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\User;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
@@ -73,5 +75,21 @@ class UsuarioController extends Controller
     public function exportExcel()
     {
         return $this->excel->download(new UsersExport, 'listadoUsuarios.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $users = User::all();
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $view = view('pdf.listUser', compact('users'))->render();
+        $dompdf->loadHtml($view);
+        $dompdf->render();
+
+        return $dompdf->stream('listadoUsuarios.pdf');
     }
 }
