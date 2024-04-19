@@ -56,6 +56,7 @@ Route::group(['prefix' => 'matricula', 'middleware' => 'auth'], function () {
     Route::get('/editar/{alumno}', [MatriculaController::class, "edit"])->name("matricula.edit");
     Route::put('/{alumno}', [MatriculaController::class, "update"])->name("matricula.update");
     Route::delete('/{alumno}', [MatriculaController::class, "destroy"])->name("matricula.destroy");
+    Route::get('/exportar/excel', [MatriculaController::class, 'exportExcel'])->name('matricula.excel');
 });
 
 Route::group(['prefix' => 'asistencia', 'middleware' => 'auth'], function () {

@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddMatriculaRequest;
-use App\Http\Requests\EditMatriculaRequest;
 use App\Models\Curso;
 use App\Models\Matriculas;
 use Illuminate\Http\Request;
+use App\Exports\AlumnosExport;
+use App\Http\Requests\AddMatriculaRequest;
+use App\Http\Requests\EditMatriculaRequest;
+use Maatwebsite\Excel\Excel;
+
 
 class MatriculaController extends Controller
 {
-    public function __construct()
+    protected $excel;
+
+    public function __construct(Excel $excel)
     {
         $this->middleware('auth');
+        $this->excel = $excel;
     }
+
 
     public function create()
     {
@@ -67,5 +74,10 @@ class MatriculaController extends Controller
     {
         $alumno->delete();
         return response()->json(['message' => 'Matricula eliminada correctamente'], 200);
+    }
+
+    public function exportExcel()
+    {
+        return $this->excel->download(new AlumnosExport, 'listadoAlumnos.xlsx');
     }
 }
