@@ -25,4 +25,12 @@ class AlumnoController extends Controller
             "alumnos" => $alumnos
         ]);
     }
+
+    public function show($id)
+    {
+        $alumno = Matriculas::findOrFail($id);
+        return view("web.alumno.showAlumno", [
+            "alumno" => $alumno
+        ]);
+    }
 }

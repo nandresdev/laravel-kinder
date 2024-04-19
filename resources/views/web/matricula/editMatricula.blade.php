@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Intranet | Nueva Matrícula')
+@section('title', 'Intranet | Editar Matrícula')
 
 @section('content_header')
-    <h1>Nueva Matrícula</h1>
+    <h1>Editar Matrícula</h1>
 @stop
 
 @section('content')
@@ -12,13 +12,14 @@
 
     <form id="formularioDeMatricula">
         @csrf
+        @method('PUT')
         <div class="card-body">
             <h5 class="">Información Del Alumno</h5>
             <br>
             <div class="form-group">
                 <label>Alumno</label>
                 <input type="name" class="form-control" id="campoNombreAlumno" placeholder="Nombre Completo Del Alumno"
-                    name="nombre_alumno" value="{{ old('nombre_alumno') }}">
+                    name="nombre_alumno" value="{{ $alumno->nombre_alumno }}">
                 <div class="invalid-feedback" id="inputValidacionNombreAlumno">
                 </div>
             </div>
@@ -27,12 +28,11 @@
                 <select class="form-control" id="campoCurso" name="id_curso">
                     <option value="">--Seleccionar Curso--</option>
                     @foreach ($cursos as $curso)
-                        @if (old('id_curso') == $curso->id)
+                        @if ($alumno->id_curso == $curso->id)
                             <option selected value="{{ $curso->id }}">
                                 {{ $curso->nombre }}</option>
                         @else
-                            <option value="{{ $curso->id }}">{{ $curso->nombre }}
-                            </option>
+                            <option value="{{ $curso->id }}">{{ $curso->nombre }}</option>
                         @endif
                     @endforeach
                 </select>
@@ -46,14 +46,14 @@
                 <label>Nombre Completo Del Apoderado Principal</label>
                 <input type="name" class="form-control" id="campoNombreApoderadoPrincipal"
                     placeholder="Nombre Completo Del Apoderado Principal" name="nombre_apoderado_principal"
-                    value="{{ old('nombre_apoderado_principal') }}">
+                    value="{{ $alumno->nombre_apoderado_principal }}">
                 <div class="invalid-feedback" id="inputValidacionNombreApoderadoPrincipal">
                 </div>
             </div>
             <div class="form-group">
                 <label>Teléfono Del Apoderado Principal</label>
                 <input type="text" class="form-control" id="campoTelefonoApoderadoPrincipal" placeholder="+56 9 12345678"
-                    name="telefono_principal" value="{{ old('telefono_principal') }}">
+                    name="telefono_principal" value="{{ $alumno->telefono_principal }}">
                 <div class="invalid-feedback" id="inputValidacionTelefonoApoderadoPrincipal">
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         (Opcional)</span></label>
                 <input type="text" class="form-control" id="campoTelefonoEmergenciaApoderadoPrincipal"
                     placeholder="+56 9 12345678" name="telefono_emergencia_principal"
-                    value="{{ old('telefono_emergencia_principal') }}">
+                    value="{{ $alumno->telefono_emergencia_principal }}">
                 <div class="invalid-feedback" id="inputValidacionTelefonoEmergenciaApoderadoPrincipal">
                 </div>
             </div>
@@ -73,14 +73,14 @@
                 <label>Nombre Completo Del Apoderado Secundario</label>
                 <input type="name" class="form-control" id="campoNombreApoderadoSecundario"
                     placeholder="Nombre Completo Del Apoderado Secundario" name="nombre_apoderado_secundario"
-                    value="{{ old('nombre_apoderado_secundario') }}">
+                    value="{{ $alumno->nombre_apoderado_secundario }}">
                 <div class="invalid-feedback" id="inputValidacionNombreApoderadoSecundario">
                 </div>
             </div>
             <div class="form-group">
                 <label>Teléfono Del Apoderado Secundario</label>
                 <input type="text" class="form-control" id="campoTelefonoApoderadoSecundario"
-                    placeholder="+56 9 12345678" name="telefono_secundario" value="{{ old('telefono_secundario') }}">
+                    placeholder="+56 9 12345678" name="telefono_secundario" value="{{ $alumno->telefono_secundario }}">
                 <div class="invalid-feedback" id="inputValidacionTelefonoApoderadoSecundario">
                 </div>
             </div>
@@ -89,7 +89,7 @@
                         (Opcional)</span></label>
                 <input type="text" class="form-control" id="campoTelefonoEmergenciaApoderadoSecundario"
                     placeholder="+56 9 12345678" name="telefono_emergencia_secundario"
-                    value="{{ old('telefono_emergencia_secundario') }}">
+                    value="{{ $alumno->telefono_emergencia_secundario }}">
                 <div class="invalid-feedback" id="inputValidacionTelefonoEmergenciaApoderadoSecundario">
                 </div>
             </div>
@@ -97,8 +97,8 @@
         </div>
 
         <div class="card-footer">
-            <button type="button" class="btn btn-warning" id="botonDeCreacion" onclick="registrarMatricula()"><i
-                    class="fas fa-plus-circle" style="margin-right: 2px;"></i> Registrar Matrícula </button>
+            <button type="button" class="btn btn-warning" id="botonDeEditar" onclick="EditarMatricula()"><i
+                    class="fas fa-plus-circle" style="margin-right: 2px;"></i> Editar Matrícula </button>
             <a href="{{ route('alumno.index') }}" role="button" class="btn btn-secondary"><i
                     class="fas fa-arrow-alt-circle-left" style="margin-right: 2px;"></i> Volver</a>
         </div>
@@ -197,19 +197,19 @@
 
         }
 
-        function registrarMatricula() {
-            document.getElementById("botonDeCreacion").removeAttribute("disabled");
+        function EditarMatricula() {
+            document.getElementById("botonDeEditar").removeAttribute("disabled");
             const datosFormulario = $("#formularioDeMatricula").serialize();
             $.ajax({
-                type: 'POST',
-                datatype: 'json',
-                url: '{{ route('matricula.store') }}',
+                type: 'PUT',
+                dataType: 'json',
+                url: '{{ route('matricula.update', ['alumno' => $alumno->id]) }}',
                 data: datosFormulario,
                 success: function(data) {
                     Swal.fire({
                         icon: 'success',
                         title: '¡Creado!',
-                        text: 'La matricula se creó con éxito',
+                        text: 'La matricula se modificó con éxito',
                         confirmButtonColor: "#448aff",
                         confirmButtonText: "Confirmar"
                     }).then((result) => {

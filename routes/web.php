@@ -50,11 +50,13 @@ Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'matricula', 'middleware' => 'auth'], function () {
     Route::get('/crear', [MatriculaController::class, "create"])->name("matricula.create");
     Route::post('/', [MatriculaController::class, "store"])->name("matricula.store");
-
+    Route::get('/editar/{alumno}', [MatriculaController::class, "edit"])->name("matricula.edit");
+    Route::put('/{alumno}', [MatriculaController::class, "update"])->name("matricula.update");
+    Route::delete('/{alumno}', [MatriculaController::class, "destroy"])->name("matricula.destroy");
 });
 
 
 Route::group(['prefix' => 'alumno', 'middleware' => 'auth'], function () {
     Route::get('/', [AlumnoController::class, "index"])->name("alumno.index");
+    Route::get('/ver/{alumno}', [AlumnoController::class, "show"])->name("alumno.show");
 });
-
