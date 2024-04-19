@@ -16,9 +16,6 @@
                 <button class="btn btn-danger" id="export_pdf">
                     Exportar a PDF
                 </button>
-                <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('alumno.create') }}'">
-                    Nuevo Alumno
-                </button>
             </div>
             <div class="table-responsive" id="scroll-footer-table" style="margin-bottom: 20px;">
                 <table class="table table-bordered" id="datatableAlumno">
@@ -28,6 +25,8 @@
                             <th>NOMBRE COMPLETO</th>
                             <th>CURSO</th>
                             <th>APODERADO</th>
+                            <th>TELEFONO</th>
+                            <th>TELEFONO EMERGENCIA</th>
                             <th>ACCIÓN</th>
                         </tr>
                     </thead>
@@ -35,16 +34,17 @@
                         @foreach ($alumnos as $alumno)
                             <tr>
                                 <td>{{ $alumno->matricula }}</td>
-                                <td>{{ $alumno->nombre }}</td>
-                                <td>{{ $alumno->apoderados->nombre }}</td>
+                                <td>{{ $alumno->nombre_alumno }}</td>
                                 <td>{{ $alumno->cursos->nombre }}</td>
+                                <td>{{ $alumno->nombre_apoderado_principal }}</td>
+                                <td>{{ $alumno->telefono_principal }}</td>
+                                <td>{{ $alumno->telefono_emergencia_principal }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
-                                            data-target="#alumnoModal{{ $alumno->id }}">
+                                        <a href="{{ route('alumno.show', $alumno->id) }}" class="btn btn-primary btn-sm">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('alumno.edit', $alumno->id) }}" class="btn btn-success btn-sm">
+                                        <a href="{{ route('matricula.edit', $alumno->id) }}" class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger btn-sm"
@@ -54,29 +54,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="alumnoModal{{ $alumno->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="alumnoModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="card-body">
-                                            <strong>Ver Matricula</strong>
-                                            <p class="text-muted">{{ $alumno->matricula }} </p>
-                                            <hr>
-                                            <strong>Nombre Completo</strong>
-                                            <p class="text-muted">{{ $alumno->nombre }} </p>
-                                            <hr>
-                                            <strong>Apoderado</strong>
-                                            <p class="text-muted">{{ $alumno->apoderados->nombre }}</p>
-                                            <strong>Curso</strong>
-                                            <p class="text-muted">{{ $alumno->cursos->nombre }}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger"
-                                                data-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -135,14 +112,6 @@
         });
     </script>
 
-    <script>
-        function mostrarAlumno(alumnoId) {
-            const alumnoDetail = $('#alumnoDetail' + alumnoId).html();
-            $('#alumnoModalLabel').html('Detalles del alumno');
-            $('#alumnoModalBody').html(alumnoDetail);
-            $('#alumnoModal').modal('show');
-        }
-    </script>
 
     <script>
         function confirmarEliminacionDelAlumno(idAlumno) {
@@ -164,7 +133,7 @@
         }
 
         function eliminarAlumno(idAlumno) {
-            var url = '{{ route('alumno.destroy', [':idAlumno']) }}';
+            var url = '{{ route('matricula.destroy', [':idAlumno']) }}';
             url = url.replace(':idAlumno', idAlumno);
             var csrf = '{{ csrf_token() }}';
 
