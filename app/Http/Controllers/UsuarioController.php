@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AddUsuarioRequest;
 use App\Http\Requests\EditUsuarioRequest;
 
 class UsuarioController extends Controller
 {
+    protected $excel;
 
-    public function __construct()
+    public function __construct(Excel $excel)
     {
         $this->middleware('auth');
+        $this->excel = $excel;
     }
 
     public function index()
@@ -66,4 +70,8 @@ class UsuarioController extends Controller
         return response()->json(['message' => 'Usuario eliminado correctamente'], 200);
     }
 
+    public function exportExcel()
+    {
+        return $this->excel->download(new UsersExport, 'listadoUsuarios.xlsx');
+    }
 }

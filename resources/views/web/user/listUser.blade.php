@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
             <div class="mb-3">
-                <button class="btn btn-success" id="export_excel">
+                <button class="btn btn-success" onclick="window.location='{{ route('usuario.excel') }}'">
                     Exportar a Excel
                 </button>
                 <button class="btn btn-danger" id="export_pdf">

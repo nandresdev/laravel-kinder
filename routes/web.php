@@ -36,6 +36,7 @@ Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
     Route::get('/editar/{usuario}', [UsuarioController::class, "edit"])->name("usuario.edit");
     Route::put('/{usuario}', [UsuarioController::class, "update"])->name("usuario.update");
     Route::delete('/{usuario}', [UsuarioController::class, "destroy"])->name("usuario.destroy");
+    Route::get('/export/excel', [UsuarioController::class, 'exportExcel'])->name('usuario.excel');
 });
 
 Route::group(['prefix' => 'cursos', 'middleware' => 'auth'], function () {
