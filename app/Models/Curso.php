@@ -19,4 +19,9 @@ class Curso extends Model
     {
         return $this->hasMany(Matriculas::class, "id_curso");
     }
+
+    public function asistencias()
+    {
+        return $this->hasMany(Asistencia::class, "id_curso");
+    }
 }

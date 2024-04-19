@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\ApoderadoController;
+use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,14 @@ Route::group(['prefix' => 'matricula', 'middleware' => 'auth'], function () {
     Route::get('/editar/{alumno}', [MatriculaController::class, "edit"])->name("matricula.edit");
     Route::put('/{alumno}', [MatriculaController::class, "update"])->name("matricula.update");
     Route::delete('/{alumno}', [MatriculaController::class, "destroy"])->name("matricula.destroy");
+});
+
+Route::group(['prefix' => 'asistencia', 'middleware' => 'auth'], function () {
+    Route::get('/', [AsistenciaController::class, "index"])->name("asistencia.index");
+    Route::get('/crear', [AsistenciaController::class, "create"])->name("asistencia.create");
+    Route::post('/', [AsistenciaController::class, "store"])->name("asistencia.store");
+    Route::post('/obtener-alumnos', [AsistenciaController::class, "obtenerAlumnosPorCurso"])->name("asistencia.obtenerAlumnosPorCurso");
+    Route::delete('/{fecha}', [AsistenciaController::class, "destroy"])->name("asistencia.destroy");
 });
 
 

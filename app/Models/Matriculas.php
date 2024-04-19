@@ -30,4 +30,9 @@ class Matriculas extends Model
     {
         return $this->belongsTo(Curso::class, "id_curso");
     }
+
+    public function asistencias()
+    {
+        return $this->hasMany(Asistencia::class, "id_alumno");
+    }
 }
