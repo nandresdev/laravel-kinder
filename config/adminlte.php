@@ -299,12 +299,6 @@ return [
             'url' => 'home',
             'icon' => 'fas fa-fw fa-home',
         ],
-        ['header' => 'CONFIGURACIÓN'],
-        [
-            'text' => 'profile',
-            'url' => '',
-            'icon' => 'fas fa-fw fa-user-lock',
-        ],
         ['header' => 'INTRANET'],
         [
             'text' => 'Usuarios',
