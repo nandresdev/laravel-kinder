@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\Curso;
 use App\Models\Matriculas;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 use App\Exports\AlumnosExport;
 use App\Http\Requests\AddMatriculaRequest;
 use App\Http\Requests\EditMatriculaRequest;
-use Maatwebsite\Excel\Excel;
 
 
 class MatriculaController extends Controller
@@ -79,5 +81,21 @@ class MatriculaController extends Controller
     public function exportExcel()
     {
         return $this->excel->download(new AlumnosExport, 'listadoAlumnos.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $alumnos = Matriculas::all();
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $view = view('pdf.listAlumno', compact('alumnos'))->render();
+        $dompdf->loadHtml($view);
+        $dompdf->render();
+
+        return $dompdf->stream('listadoAlumnos.pdf');
     }
 }
