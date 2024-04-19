@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\Curso;
 use Illuminate\Http\Request;
-use App\Exports\CursosExport;
 use Maatwebsite\Excel\Excel;
+use App\Exports\CursosExport;
 use App\Http\Requests\AddCursoRequest;
 use App\Http\Requests\EditCursoRequest;
 
@@ -81,5 +83,21 @@ class CursoController extends Controller
     public function exportExcel()
     {
         return $this->excel->download(new CursosExport, 'listadoCursos.xlsx');
+    }
+
+    public function exportPdf()
+    {
+        $cursos = Curso::all();
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $view = view('pdf.listCursos', compact('cursos'))->render();
+        $dompdf->loadHtml($view);
+        $dompdf->render();
+
+        return $dompdf->stream('listadoCursos.pdf');
     }
 }

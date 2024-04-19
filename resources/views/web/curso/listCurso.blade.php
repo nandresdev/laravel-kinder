@@ -13,7 +13,7 @@
                 <button class="btn btn-success" onclick="window.location='{{ route('curso.excel') }}'">
                     Exportar a Excel
                 </button>
-                <button class="btn btn-danger" id="export_pdf">
+                <button class="btn btn-danger" onclick="window.location='{{ route('curso.pdf') }}'">
                     Exportar a PDF
                 </button>
                 <button class="btn btn-primary" id="toggle_columns" onclick="window.location='{{ route('curso.create') }}'">
