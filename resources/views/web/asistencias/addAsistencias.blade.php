@@ -68,7 +68,35 @@
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function validarCampos(data) {
 
+            if (typeof data.responseJSON.errors.id_curso !== 'undefined') {
+                document.getElementById("campoCurso").classList.remove('is-valid');
+                document.getElementById("campoCurso").classList.add('is-invalid');
+                document.getElementById("inputValidacionCurso").innerHTML = data.responseJSON.errors.id_curso;
+                document.getElementById("inputValidacionCurso").style.display = "block";
+            } else {
+                document.getElementById("campoCurso").classList.remove('is-invalid');
+                document.getElementById("campoCurso").classList.add('is-valid');
+                document.getElementById("inputValidacionCurso").innerHTML = "";
+                document.getElementById("inputValidacionCurso").style.display = "none";
+            }
+
+            if (typeof data.responseJSON.errors.fecha !== 'undefined') {
+                document.getElementById("campoFecha").classList.remove('is-valid');
+                document.getElementById("campoFecha").classList.add('is-invalid');
+                document.getElementById("inputValidacionFecha").innerHTML = data.responseJSON.errors.fecha;
+                document.getElementById("inputValidacionFecha").style.display = "block";
+            } else {
+                document.getElementById("campoFecha").classList.remove('is-invalid');
+                document.getElementById("campoFecha").classList.add('is-valid');
+                document.getElementById("inputValidacionFecha").innerHTML = "";
+                document.getElementById("inputValidacionFecha").style.display = "none";
+            }
+
+        }
+    </script>
     <script>
         function actualizarTabla() {
             var cursoSeleccionado = $('#campoCurso').val();
