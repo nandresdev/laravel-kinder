@@ -16,10 +16,10 @@ class AsistenciaController extends Controller
     {
         $this->middleware('auth');
     }
-
     public function index()
     {
-        $asistencias = Asistencia::select('fecha')->groupBy('fecha')->get();
+        $asistencias = Asistencia::select('fecha', 'id_curso')->groupBy('fecha', 'id_curso')->get();
+
         return view("web.asistencias.listAsistencias", [
             "asistencias" => $asistencias
         ]);
@@ -59,11 +59,15 @@ class AsistenciaController extends Controller
         return response()->json($asistencia);
     }
 
-
-
-
-    public function show(string $id)
+    public function show($fecha, $id_curso)
     {
+        $asistencias = Asistencia::where('fecha', $fecha)
+            ->where('id_curso', $id_curso)
+            ->get();
+
+        return view("web.asistencias.showAsistencias", [
+            'asistencias' => $asistencias,
+        ]);
     }
 
 
@@ -77,9 +81,12 @@ class AsistenciaController extends Controller
     }
 
 
-    public function destroy($fecha)
+    public function destroy($fecha, $id_curso)
     {
-        Asistencia::where('fecha', $fecha)->delete();
-        return response()->json(['message' => 'Asistencias eliminadas correctamente'], 200);
+        Asistencia::where('fecha', $fecha)
+            ->where('id_curso', $id_curso)
+            ->delete();
+
+        return response()->json(['message' => 'Asistencias del curso eliminadas correctamente'], 200);
     }
 }

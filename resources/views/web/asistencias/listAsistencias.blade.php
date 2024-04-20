@@ -34,25 +34,26 @@
                         @foreach ($asistencias as $asistencia)
                             <tr>
                                 <td>
-                                    @isset($asistencia->first()->cursos)
-                                        {{ $asistencia->first()->cursos->nombre }}
+                                    @isset($asistencia->cursos)
+                                        {{ $asistencia->cursos->nombre }}
                                     @else
                                         Sin curso asignado
                                     @endisset
                                 </td>
-                                <td>{{ $asistencia->first()->fecha }}</td>
+                                <td>{{ $asistencia->fecha }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="" class="btn btn-primary btn-sm">
+                                        <a href="{{ route('asistencia.show', ['fecha' => $asistencia->fecha, 'id_curso' => $asistencia->id_curso]) }}"
+                                            class="btn btn-primary btn-sm">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="" class="btn btn-success btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger btn-sm"
-                                        onclick="confirmarEliminacionDeAsistencia('{{ $asistencia->first()->fecha }}')">
-                                         <i class="fas fa-trash-alt"></i>
-                                     </a>
+                                            onclick="confirmarEliminacionDeAsistencia('{{ $asistencia->fecha }}', '{{ $asistencia->id_curso }}')">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -114,59 +115,61 @@
         });
     </script>
 
-<script>
-    function confirmarEliminacionDeAsistencia(fecha) {
-        Swal.fire({
-            title: '¿Está seguro?',
-            text: "Todas las asistencias para la fecha " + fecha + " serán eliminadas definitivamente",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '¡Sí, eliminar!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                eliminarAsistencia(fecha);
-            }
-        });
-    }
+    <script>
+        function confirmarEliminacionDeAsistencia(fecha, id_curso) {
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: "Todas las asistencias para la fecha " + fecha + " serán eliminadas definitivamente",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Sí, eliminar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarAsistencia(fecha, id_curso);
+                }
+            });
+        }
 
-    function eliminarAsistencia(fecha) {
-        const url = '{{ route('asistencia.destroy', ':fecha') }}'.replace(':fecha', fecha);
-        const csrf = '{{ csrf_token() }}';
+        function eliminarAsistencia(fecha, id_curso) {
+            const url = '{{ route('asistencia.destroy', ['fecha' => ':fecha', 'id_curso' => ':id_curso']) }}'
+                .replace(':fecha', fecha)
+                .replace(':id_curso', id_curso);
+            const csrf = '{{ csrf_token() }}';
 
-        $.ajax({
-            type: 'DELETE',
-            url: url,
-            data: {
-                _token: csrf
-            },
-            success: function(data) {
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Eliminada!',
-                    text: 'Las asistencias se eliminaron con éxito',
-                    confirmButtonColor: "#448aff",
-                    confirmButtonText: "Confirmar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.reload();
-                    }
-                });
-            },
-            error: function(data) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Hubo un error al intentar eliminar las asistencias',
-                    confirmButtonColor: "#448aff",
-                    confirmButtonText: "Cerrar"
-                });
-            }
-        });
-    }
-</script>
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                data: {
+                    _token: csrf
+                },
+                success: function(data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Eliminada!',
+                        text: 'Las asistencias se eliminaron con éxito',
+                        confirmButtonColor: "#448aff",
+                        confirmButtonText: "Confirmar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(data) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Hubo un error al intentar eliminar las asistencias',
+                        confirmButtonColor: "#448aff",
+                        confirmButtonText: "Cerrar"
+                    });
+                }
+            });
+        }
+    </script>
 
 
 @stop

@@ -67,7 +67,8 @@ Route::group(['prefix' => 'asistencia', 'middleware' => 'auth'], function () {
     Route::get('/crear', [AsistenciaController::class, "create"])->name("asistencia.create");
     Route::post('/', [AsistenciaController::class, "store"])->name("asistencia.store");
     Route::post('/obtener-alumnos', [AsistenciaController::class, "obtenerAlumnosPorCurso"])->name("asistencia.obtenerAlumnosPorCurso");
-    Route::delete('/{fecha}', [AsistenciaController::class, "destroy"])->name("asistencia.destroy");
+    Route::get('/{fecha}/{id_curso}', [AsistenciaController::class, "show"])->name("asistencia.show");
+    Route::delete('/{fecha}/{id_curso}', [AsistenciaController::class, "destroy"])->name("asistencia.destroy");
 });
 
 
