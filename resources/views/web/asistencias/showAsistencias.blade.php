@@ -11,6 +11,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="invoice p-3 mb-3">
+                    <button class="btn btn-success"
+                        onclick="window.location='{{ route('asistencia.excel', ['fecha' => $fecha, 'id_curso' => $id_curso]) }}'">
+                        Exportar a Excel
+                    </button>
+                    <button class="btn btn-danger" id="export_pdf">
+                        Exportar a PDF
+                    </button>
                     <br><br>
                     <div class="row">
                         <div class="col-12 table-responsive">

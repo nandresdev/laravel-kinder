@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddAsistenciasRequest;
 use App\Models\User;
-use App\Models\Asistencia;
 use App\Models\Curso;
+use App\Models\Asistencia;
 use App\Models\Matriculas;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
+use App\Exports\AsitenciasExport;
+use App\Http\Requests\AddAsistenciasRequest;
 
 class AsistenciaController extends Controller
 {
 
-    public function __construct()
+    protected $excel;
+
+    public function __construct(Excel $excel)
     {
         $this->middleware('auth');
+        $this->excel = $excel;
     }
+
     public function index()
     {
         $asistencias = Asistencia::select('fecha', 'id_curso')->groupBy('fecha', 'id_curso')->get();
@@ -67,19 +73,10 @@ class AsistenciaController extends Controller
 
         return view("web.asistencias.showAsistencias", [
             'asistencias' => $asistencias,
+            'fecha' => $fecha,
+            'id_curso' => $id_curso,
         ]);
     }
-
-
-    public function edit(string $id)
-    {
-    }
-
-
-    public function update(Request $request, string $id)
-    {
-    }
-
 
     public function destroy($fecha, $id_curso)
     {
@@ -88,5 +85,11 @@ class AsistenciaController extends Controller
             ->delete();
 
         return response()->json(['message' => 'Asistencias del curso eliminadas correctamente'], 200);
+    }
+
+    public function exportExcel($fecha, $id_curso)
+    {
+        $export = new AsitenciasExport($fecha, $id_curso);
+        return $this->excel->download($export, 'listadoAsistencias.xlsx');
     }
 }

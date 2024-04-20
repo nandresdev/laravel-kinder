@@ -10,12 +10,6 @@
     <div class="card">
         <div class="card-body">
             <div class="mb-3">
-                <button class="btn btn-success" id="export_excel">
-                    Exportar a Excel
-                </button>
-                <button class="btn btn-danger" id="export_pdf">
-                    Exportar a PDF
-                </button>
                 <button class="btn btn-primary" id="toggle_columns"
                     onclick="window.location='{{ route('asistencia.create') }}'">
                     Generar Asistencia
@@ -46,9 +40,6 @@
                                         <a href="{{ route('asistencia.show', ['fecha' => $asistencia->fecha, 'id_curso' => $asistencia->id_curso]) }}"
                                             class="btn btn-primary btn-sm">
                                             <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="" class="btn btn-success btn-sm">
-                                            <i class="fas fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger btn-sm"
                                             onclick="confirmarEliminacionDeAsistencia('{{ $asistencia->fecha }}', '{{ $asistencia->id_curso }}')">
