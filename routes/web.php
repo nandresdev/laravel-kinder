@@ -70,6 +70,8 @@ Route::group(['prefix' => 'asistencia', 'middleware' => 'auth'], function () {
     Route::get('/{fecha}/{id_curso}', [AsistenciaController::class, "show"])->name("asistencia.show");
     Route::delete('/{fecha}/{id_curso}', [AsistenciaController::class, "destroy"])->name("asistencia.destroy");
     Route::get('/exportar/excel/{fecha}/{id_curso}', [AsistenciaController::class, 'exportExcel'])->name('asistencia.excel');
+    Route::get('/exportar/pdf/{fecha}/{id_curso}', [AsistenciaController::class, 'exportPdf'])->name('asistencia.pdf');
+
 });
 
 

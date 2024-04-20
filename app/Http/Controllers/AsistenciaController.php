@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\User;
 use App\Models\Curso;
 use App\Models\Asistencia;
@@ -91,5 +93,29 @@ class AsistenciaController extends Controller
     {
         $export = new AsitenciasExport($fecha, $id_curso);
         return $this->excel->download($export, 'listadoAsistencias.xlsx');
+    }
+
+
+    public function exportPdf($fecha, $id_curso)
+    {
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        $asistencias = Asistencia::where('fecha', $fecha)
+            ->where('id_curso', $id_curso)
+            ->get();
+
+        $view = view('pdf.listAsistenciaPdf', [
+            'asistencias' => $asistencias,
+            'fecha' => $fecha,
+            'id_curso' => $id_curso
+        ])->render();
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($view);
+        $dompdf->render();
+
+        return $dompdf->stream("listadoAsistencia-{$fecha}-{$id_curso}.pdf");
     }
 }

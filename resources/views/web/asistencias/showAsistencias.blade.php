@@ -15,7 +15,8 @@
                         onclick="window.location='{{ route('asistencia.excel', ['fecha' => $fecha, 'id_curso' => $id_curso]) }}'">
                         Exportar a Excel
                     </button>
-                    <button class="btn btn-danger" id="export_pdf">
+                    <button class="btn btn-danger"
+                        onclick="window.location='{{ route('asistencia.pdf', ['fecha' => $fecha, 'id_curso' => $id_curso]) }}'">
                         Exportar a PDF
                     </button>
                     <br><br>
