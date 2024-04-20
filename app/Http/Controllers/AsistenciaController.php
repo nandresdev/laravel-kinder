@@ -91,8 +91,13 @@ class AsistenciaController extends Controller
 
     public function exportExcel($fecha, $id_curso)
     {
+        $curso = Curso::find($id_curso);
+        $nombreDelCurso = $curso ? $curso->nombre : 'curso';
+        $nombreArchivo = "listadoAsistencias_{$nombreDelCurso}_{$fecha}.xlsx";
+        $nombreArchivo = str_replace(['/', '\\', ' '], '_', $nombreArchivo);
+
         $export = new AsitenciasExport($fecha, $id_curso);
-        return $this->excel->download($export, 'listadoAsistencias.xlsx');
+        return $this->excel->download($export, $nombreArchivo);
     }
 
 
@@ -116,6 +121,6 @@ class AsistenciaController extends Controller
         $dompdf->loadHtml($view);
         $dompdf->render();
 
-        return $dompdf->stream("listadoAsistencia-{$fecha}-{$id_curso}.pdf");
+        return $dompdf->stream("listadoAsistencia_{$fecha}_{$id_curso}.pdf");
     }
 }

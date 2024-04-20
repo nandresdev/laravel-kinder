@@ -92,7 +92,7 @@ class MatriculaController extends Controller
         $options->set('isRemoteEnabled', true);
 
         $dompdf = new Dompdf($options);
-        $view = view('pdf.listAlumno', compact('alumnos'))->render();
+        $view = view('pdf.listAlumnoPdf', compact('alumnos'))->render();
         $dompdf->loadHtml($view);
         $dompdf->render();
 

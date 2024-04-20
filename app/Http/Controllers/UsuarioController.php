@@ -86,7 +86,7 @@ class UsuarioController extends Controller
         $options->set('isRemoteEnabled', true);
 
         $dompdf = new Dompdf($options);
-        $view = view('pdf.listUser', compact('users'))->render();
+        $view = view('pdf.listUserPdf', compact('users'))->render();
         $dompdf->loadHtml($view);
         $dompdf->render();
 

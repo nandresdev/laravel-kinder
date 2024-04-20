@@ -94,7 +94,7 @@ class CursoController extends Controller
         $options->set('isRemoteEnabled', true);
 
         $dompdf = new Dompdf($options);
-        $view = view('pdf.listCursos', compact('cursos'))->render();
+        $view = view('pdf.listCursosPdf', compact('cursos'))->render();
         $dompdf->loadHtml($view);
         $dompdf->render();
 
