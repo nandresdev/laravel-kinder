@@ -22,7 +22,6 @@ class AddMatriculaRequest extends FormRequest
             'nombre_apoderado_secundario' => 'required|string|max:255',
             'telefono_secundario' => 'required|string|max:255',
             'telefono_emergencia_secundario' => 'nullable|string|max:255',
-            'matricula' => 'nullable|file|max:255',
             'id_curso' => 'required',
         ];
     }

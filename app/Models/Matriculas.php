@@ -17,7 +17,6 @@ class Matriculas extends Model
         'nombre_apoderado_secundario',
         'telefono_secundario',
         'telefono_emergencia_secundario',
-        'matricula',
         'id_curso'
 
     ];

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('nombre_apoderado_secundario');
             $table->string('telefono_secundario');
             $table->string('telefono_emergencia_secundario')->nullable();
-            $table->string('matricula')->nullable();
             $table->unsignedBigInteger('id_curso')->nullable();
             $table->foreign("id_curso")->references("id")->on("cursos")->onUpdate("cascade");
             $table->timestamps();
