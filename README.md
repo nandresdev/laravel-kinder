@@ -8,7 +8,7 @@ Este repositorio contiene una plataforma digital creada específicamente para au
 
 - **Automatización de Matrículas**: El proceso de matriculación es completamente digital, permitiendo a los funcionarios matricular a sus alumnos de manera rápida y sencilla desde cualquier dispositivo.
 - **Control de Asistencia**: La plataforma permite llevar un registro detallado de la asistencia de los alumnos, facilitando el seguimiento diario.
-- **Gestión de Información de Apoderados, Funcionarios y Alumnos**: Todos los datos relevantes de los apoderados, funcionarios y alumnos se gestionan de manera segura dentro de la plataforma, asegurando un acceso fácil y protegido..
+- **Gestión de Información de Apoderados, Funcionarios y Alumnos**: Todos los datos relevantes de los apoderados, funcionarios y alumnos se gestionan de manera segura dentro de la plataforma, asegurando un acceso fácil y protegido.
 
 ## Tecnologías utilizadas
 
