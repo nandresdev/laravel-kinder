@@ -15,7 +15,7 @@ Este repositorio contiene una plataforma digital creada específicamente para au
 En este proyecto, se emplean las siguientes tecnologías y bibliotecas para el desarrollo, gestión de la base de datos, interfaz de usuario y otras funcionalidades:
 
 ### Backend
-- **[Laravel](https://laravel.com/)**: Un framework de PHP para el desarrollo de aplicaciones y servicios web.
+- **[Laravel 10](https://laravel.com/)**: Un framework de PHP para el desarrollo de aplicaciones y servicios web.
 - **[MySQL](https://www.mysql.com/)**: Sistema de gestión de bases de datos relacional, utilizado para almacenar y gestionar la base de datos del proyecto.
 
 ### Frontend
